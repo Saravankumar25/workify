@@ -2,6 +2,10 @@ node_modules/
 dist/
 .env
 .env.local
+backend/venv/
+backend/.venv/
+venv/
+env/
 new_prompt.md
 spec.md
 .venv/
