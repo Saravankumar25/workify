@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v \":0$\")",
+      "Bash(python -c \"import ast,sys; [ast.parse\\(open\\(f\\).read\\(\\)\\) for f in ['app.py','core/config.py','core/security.py','core/dependencies.py','core/rate_limit.py','db/mongo.py','models/user.py','models/profile.py','models/job.py','models/application.py','models/artifact.py','models/run.py','models/linkedin_credentials.py','services/apply_service.py','services/cloudinary_service.py','services/docs_service.py','services/llm_service.py','services/scraper_service.py','services/profile_service.py','services/tracker_service.py','routers/apply.py','routers/auth.py','routers/compose.py','routers/health.py','routers/jobs.py','routers/applications.py','routers/profile.py','routers/credentials.py','routers/logs.py','routers/settings.py']]; print\\('syntax ok'\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(python backend/workers/test_worker.py)"
+    ]
+  }
+}

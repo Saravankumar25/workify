@@ -1,0 +1,93 @@
+services:
+  - type: web
+    name: workify-api
+    runtime: python
+    plan: starter
+    region: oregon
+    rootDir: .
+    healthCheckPath: /health
+    autoDeploy: true
+
+    # System libs: fonts for ReportLab PDF + Playwright Chromium deps.
+    # pango/cairo/gdk-pixbuf removed — WeasyPrint replaced by ReportLab.
+    buildCommand: |
+      set -e
+      apt-get update -y
+      apt-get install -y --no-install-recommends \
+        libffi-dev shared-mime-info fonts-liberation || true
+      pip install --upgrade pip
+      pip install -r backend/requirements.txt
+      playwright install chromium
+      playwright install-deps chromium
+
+    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT --workers 1
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: API_HOST
+        value: "0.0.0.0"
+      - key: CORS_ORIGINS
+        sync: false
+      - key: MONGODB_URL
+        sync: false
+      - key: MONGODB_DB_NAME
+        value: workify
+      - key: FIREBASE_CREDENTIALS_JSON
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_API_KEYS
+        sync: false
+      - key: GEMINI_API_KEYS
+        sync: false
+      - key: MISTRAL_API_KEYS
+        sync: false
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: GROQ_MODEL_FALLBACK
+        value: llama-3.1-8b-instant
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: FERNET_KEY
+        sync: false
+      - key: PLAYWRIGHT_HEADLESS
+        value: "true"
+      - key: PLAYWRIGHT_SLOWMO_MS
+        value: "40"
+      - key: BROWSER_USE_MAX_STEPS
+        value: "75"
+      # Render Starter (512 MB) cannot fit more than 2 concurrent headless
+      # Chromium instances without OOM. Do not raise without upgrading plan.
+      - key: MAX_CONCURRENT_APPLY_RUNS
+        value: "2"
+      - key: RATE_LIMIT_APPLIES_PER_DAY_DEFAULT
+        value: "20"
+      - key: RATE_LIMIT_APPLIES_PER_DAY_MAX
+        value: "50"
+      - key: ARTIFACT_EXPORTS_PER_DAY_DEFAULT
+        value: "40"
+      - key: APPLY_RUN_TIMEOUT_SECONDS
+        value: "420"
+      - key: LINKEDIN_LOGIN_TIMEOUT_SECONDS
+        value: "90"
+      - key: BROWSER_PHASE_TIMEOUT_SECONDS
+        value: "180"
+      - key: PDF_UPLOAD_TIMEOUT_SECONDS
+        value: "45"
+      - key: PDF_RENDER_TIMEOUT_SECONDS
+        value: "30"
+      - key: GROQ_REQUEST_TIMEOUT_SECONDS
+        value: "60"
+      - key: LINKEDIN_FAILURE_THRESHOLD
+        value: "5"
+      - key: LINKEDIN_FAILURE_WINDOW_SECONDS
+        value: "1800"
+      - key: LINKEDIN_CIRCUIT_COOLDOWN_SECONDS
+        value: "3600"
+      - key: ADMIN_EMAIL
+        sync: false

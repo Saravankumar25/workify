@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+new_prompt.md
+spec.md
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+.vite/

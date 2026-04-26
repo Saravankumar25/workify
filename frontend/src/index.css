@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-[#222222];
+  }
+  body {
+    @apply bg-black text-white;
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #000; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-[#0a0a0a] border border-[#222222] rounded-lg;
+  }
+  .prose-workify {
+    @apply text-[#e5e5e5] leading-relaxed;
+  }
+  .prose-workify h1 { @apply text-2xl font-bold text-white mb-4; }
+  .prose-workify h2 { @apply text-xl font-semibold text-white mb-3 mt-6; }
+  .prose-workify h3 { @apply text-lg font-medium text-white mb-2 mt-4; }
+  .prose-workify p { @apply mb-3; }
+  .prose-workify ul { @apply list-disc pl-6 mb-3; }
+  .prose-workify ol { @apply list-decimal pl-6 mb-3; }
+  .prose-workify code { @apply bg-[#1a1a1a] text-[#e5e5e5] px-1.5 py-0.5 rounded text-sm font-mono; }
+  .prose-workify pre { @apply bg-[#0a0a0a] border border-[#222222] rounded-lg p-4 mb-4 overflow-x-auto; }
+  .prose-workify a { @apply text-white underline underline-offset-2; }
+}
