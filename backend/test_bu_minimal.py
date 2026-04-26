@@ -22,7 +22,7 @@ async def main():
     
     llm = ChatGroq(
         model="llama-3.3-70b-versatile",
-        api_key="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",
+        ",
         temperature=0,
         timeout=60,
         max_retries=2,
